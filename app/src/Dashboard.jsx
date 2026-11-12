@@ -2,61 +2,64 @@ import React, { useState, useEffect } from 'react';
 import { getWeatherData } from './weatherService';
 import resortsData from './resorts.json';
 
-// Minimalist hava durumu ikon bileşeni
-function WeatherMiniIcon({ code }) {
-  const c = String(code || '').toUpperCase();
+const SNOW_CODES   = new Set(['K','HKY','YKY','KKY','71','73','75','77','85','86']);
+const STORM_CODES  = new Set(['GSY','KGY','DY','MSY','KSY','95','96','99']);
+const RAIN_CODES   = new Set(['Y','HY','SY','KY','HHY','51','53','55','56','57','61','63','65','66','67','80','81','82']);
+const FOG_CODES    = new Set(['S','SIS','P','PUS','D','45','48']);
+const OVERCAST_CODES = new Set(['CB','3']);
+const PARTLY_CODES = new Set(['PB','AB','R','GKR','KKR','KF','SGK','SCK','1','2']);
 
-  if (c.includes('K') || c === '71' || c === '73' || c === '75' || c === '77' || c === '85' || c === '86') {
-    // Kar / Karla karışık
+function WeatherMiniIcon({ code }) {
+  const c = String(code || '').trim().toUpperCase();
+
+  if (SNOW_CODES.has(c)) {
     return (
       <svg className="w-4 h-4 text-cyan-200 drop-shadow-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M4.93 19.07L19.07 4.93" />
       </svg>
     );
-  } else if (c.includes('GSY') || c.includes('KGY') || c === '95' || c === '96' || c === '99') {
-    // Fırtına / Şimşek
+  }
+  if (STORM_CODES.has(c)) {
     return (
       <svg className="w-4 h-4 text-amber-300 drop-shadow-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
       </svg>
     );
-  } else if (c.includes('Y') || c.includes('HY') || c.includes('SY') || c === '61' || c === '63' || c === '65' || c === '80' || c === '81' || c === '82') {
-    // Yağmur
+  }
+  if (RAIN_CODES.has(c)) {
     return (
       <svg className="w-4 h-4 text-sky-300 drop-shadow-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M20 16.58A5 5 0 0018 7h-1.26A8 8 0 104 15.25M8 19v2m4-2v2m4-2v2" />
       </svg>
     );
-  } else if (c.includes('SIS') || c.includes('PUS') || c.includes('S') || c.includes('P') || c === '45' || c === '48') {
-    // Sis / Pus
+  }
+  if (FOG_CODES.has(c)) {
     return (
       <svg className="w-4 h-4 text-white/70 drop-shadow-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M3 15h18M3 9h18M6 12h12M8 18h8" />
       </svg>
     );
-  } else if (c.includes('CB') || c === '3') {
-    // Çok Bulutlu / Kapalı
+  }
+  if (OVERCAST_CODES.has(c)) {
     return (
       <svg className="w-4 h-4 text-white/80 drop-shadow-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 00-9.78 2.096A4.001 4.001 0 003 15z" />
       </svg>
     );
-  } else if (c.includes('PB') || c.includes('AB') || c === '1' || c === '2') {
-    // Parçalı Bulutlu
+  }
+  if (PARTLY_CODES.has(c)) {
     return (
       <svg className="w-4 h-4 text-amber-100 drop-shadow-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
       </svg>
     );
-  } else {
-    // Açık / Güneşli
-    return (
-      <svg className="w-4 h-4 text-amber-300 drop-shadow-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-        <circle cx="12" cy="12" r="4" />
-        <path strokeLinecap="round" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41m14.14-14.14l-1.41 1.41" />
-      </svg>
-    );
   }
+  return (
+    <svg className="w-4 h-4 text-amber-300 drop-shadow-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+      <circle cx="12" cy="12" r="4" />
+      <path strokeLinecap="round" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41m14.14-14.14l-1.41 1.41" />
+    </svg>
+  );
 }
 
 export default function Dashboard() {
@@ -87,9 +90,11 @@ export default function Dashboard() {
     };
 
     fetchWeather();
+    const intervalId = setInterval(fetchWeather, 10 * 60 * 1000);
 
     return () => {
       isMounted = false;
+      clearInterval(intervalId);
     };
   }, [selectedResort]);
 
@@ -433,8 +438,11 @@ export default function Dashboard() {
 
             {/* Modal Footer */}
             <div className="p-4 bg-black/30 backdrop-blur-md border-t border-white/15 flex justify-between items-center text-xs text-white/70">
-              <span className="font-medium">{selectedResort.city}, Türkiye</span>
-              <button 
+              <div>
+                <span className="font-medium">{selectedResort.city}, Türkiye</span>
+                <p className="text-[10px] text-white/40 mt-0.5">Bu görsel temsilidir, resmi pist haritası değildir.</p>
+              </div>
+              <button
                 onClick={() => setIsMapModalOpen(false)}
                 className="px-5 py-2 bg-white text-black font-bold rounded-xl hover:bg-white/90 transition-all shadow-md active:scale-95"
               >

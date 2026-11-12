@@ -153,7 +153,7 @@ async function fetchOpenMeteoFallback(lat, lon, elevation) {
   }
 
   return {
-    temperature: current.temperature_2m,
+    temperature: Number(current.temperature_2m).toFixed(1),
     windSpeed: windSpeed,
     weatherDescription: wmoWeatherCodes[current.weather_code] || 'Bilinmeyen Hava Durumu',
     snowDepth: 0,
