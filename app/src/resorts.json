@@ -1,0 +1,106 @@
+[
+  {
+    "id": "uludag",
+    "name": "Uludağ Kayak Merkezi",
+    "city": "Bursa",
+    "lat": 40.0969,
+    "lon": 29.1353,
+    "elevation": 2200,
+    "mgm_ist_no": 17676,
+    "mgm_merkez_id": 91618,
+    "slopes": {
+      "green_blue_percent": 45,
+      "red_percent": 45,
+      "black_percent": 10,
+      "total_km": 28
+    },
+    "slope_guide": {
+      "zone1_title": "1. Bölge (Başlangıç / Aile)",
+      "zone1_desc": "Beceren, Karkay, Cennetkaya hattı. Geniş ve yumuşak eğimli mavi pistler ağırlıktadır, temel eğitim için idealdir.",
+      "zone2_title": "2. Bölge & Zirve (Orta / İleri)",
+      "zone2_desc": "Kuşaklıkaya, Maden ve Tutyeli hattı. Dik kırmızı ve siyah etaplar bulunur; carving ve tempolu inişler için uygundur.",
+      "popular_runs": "Öne Çıkanlar: Tutyeli, Kuşaklıkaya, Cennetkaya, Beden Terbiyesi"
+    },
+    "sales_tip": "Uludağ'ın değişken nem ve rüzgar koşulları için nem emici katmanlı giysiler ile yumuşayan karda rahat kayış sağlayan all-mountain kayak veya snowboard tavsiye edilir.",
+    "bg_image": "https://images.unsplash.com/photo-1548777123-e216912df7d8?auto=format&fit=crop&q=80",
+    "trail_map_url": "https://images.unsplash.com/photo-1551524559-8af4e6624178?auto=format&fit=crop&w=1600&q=80"
+  },
+  {
+    "id": "erciyes",
+    "name": "Erciyes Kayak Merkezi",
+    "city": "Kayseri",
+    "lat": 38.5408,
+    "lon": 35.5244,
+    "elevation": 2200,
+    "mgm_ist_no": 18149,
+    "mgm_merkez_id": 93817,
+    "slopes": {
+      "green_blue_percent": 35,
+      "red_percent": 50,
+      "black_percent": 15,
+      "total_km": 102
+    },
+    "slope_guide": {
+      "zone1_title": "Tekir & Develi Kapı (Başlangıç / Orta)",
+      "zone1_desc": "Geniş güvenlik alanları, yürüyen bantlar ve aile pistleri. Temel seviye ve alıştırma turları için uygundur.",
+      "zone2_title": "Hacılar & Hisarcık Zirve (İleri Seviye)",
+      "zone2_desc": "3400m irtifada dik etaplar ve serbest iniş rotaları. Yüksek hız ve sert zemin için teknik pistler.",
+      "popular_runs": "Öne Çıkanlar: Hacılar Kapı, Sırt Pisti, Şeytan Deresi, Kani Pisti"
+    },
+    "sales_tip": "Erciyes'in yüksek irtifadaki rüzgarlı ve açık hava koşulları için rüzgar geçirmez hardshell ceket ile yüksek UV korumalı aynalı cam kar gözlüğü tercih etmelisiniz.",
+    "bg_image": "https://images.unsplash.com/photo-1512273222628-4daea6e55abb?auto=format&fit=crop&q=80",
+    "trail_map_url": "https://images.unsplash.com/photo-1605540436563-5bca919ae766?auto=format&fit=crop&w=1600&q=80"
+  },
+  {
+    "id": "palandoken",
+    "name": "Palandöken Kayak Merkezi",
+    "city": "Erzurum",
+    "lat": 39.8547,
+    "lon": 41.2828,
+    "elevation": 2200,
+    "mgm_ist_no": 17777,
+    "mgm_merkez_id": 92521,
+    "slopes": {
+      "green_blue_percent": 30,
+      "red_percent": 45,
+      "black_percent": 25,
+      "total_km": 55
+    },
+    "slope_guide": {
+      "zone1_title": "Alt İstasyon & Dedeman Etabı (Orta)",
+      "zone1_desc": "Yumuşak eğimli başlangıç alanları ve aydınlatmalı gece kayağı pistleri. Isınma turları için idealdir.",
+      "zone2_title": "Ejder 3200 Zirve Hattı (İleri / Ekstrem)",
+      "zone2_desc": "Türkiye'nin en uzun ve dik FIS tescilli etapları. Sert toz kar ve yüksek eğimli slalom rotaları.",
+      "popular_runs": "Öne Çıkanlar: Ejder Pisti, Kapı Pisti, Vadi İnişi, Güney Pisti"
+    },
+    "sales_tip": "Palandöken'in dondurucu soğukları ve sert/buzlu zemin yapısı için yüksek termal değerli içlik takımı ve keskin kenar tutuşuna sahip sert flex ekipmanlar önerilir.",
+    "bg_image": "https://images.unsplash.com/photo-1491555103944-7c647fd857e6?auto=format&fit=crop&q=80",
+    "trail_map_url": "https://images.unsplash.com/photo-1546707012-0c9f63ba29b8?auto=format&fit=crop&w=1600&q=80"
+  },
+  {
+    "id": "kartalkaya",
+    "name": "Kartalkaya Kayak Merkezi",
+    "city": "Bolu",
+    "lat": 40.5906,
+    "lon": 31.8039,
+    "elevation": 2052,
+    "mgm_ist_no": 18174,
+    "mgm_merkez_id": 91410,
+    "slopes": {
+      "green_blue_percent": 40,
+      "red_percent": 45,
+      "black_percent": 15,
+      "total_km": 40
+    },
+    "slope_guide": {
+      "zone1_title": "Dorukkaya & Snowpark Bölgesi (Her Seviye)",
+      "zone1_desc": "Türkiye'nin önde gelen snowpark hattı ve orman içi korunaklı pistler. Freestyle ve board için idealdir.",
+      "zone2_title": "Kartal Otel & Zirve Çamçukuru (Orta / İleri)",
+      "zone2_desc": "Nispeten dik sırt hatları ve geniş bol kar alanları. Rüzgardan korunaklı vadi geçişleri bulunur.",
+      "popular_runs": "Öne Çıkanlar: Çamçukuru, Kazankaya, Resuldede, Yılmaz Demir"
+    },
+    "sales_tip": "Kartalkaya'da sıkça görülen sisli havalarda kontrastı artıran sarı/turuncu kontrastlı gözlük camı ve ezilmemiş bol kar alanları için geniş tabanlı snowboard/kayak tavsiye edilir.",
+    "bg_image": "https://images.unsplash.com/photo-1478265409131-1f65c88f965c?auto=format&fit=crop&q=80",
+    "trail_map_url": "https://images.unsplash.com/photo-1517059224940-d4af9eec41b7?auto=format&fit=crop&w=1600&q=80"
+  }
+]
