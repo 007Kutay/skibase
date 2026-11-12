@@ -62,6 +62,29 @@ function WeatherMiniIcon({ code }) {
   );
 }
 
+function RecommendationIcon({ category }) {
+  if (category === 'giysi') {
+    return (
+      <svg className="w-4 h-4 text-sky-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+      </svg>
+    );
+  }
+  if (category === 'ekipman') {
+    return (
+      <svg className="w-4 h-4 text-amber-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+      </svg>
+    );
+  }
+  return (
+    <svg className="w-4 h-4 text-violet-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+    </svg>
+  );
+}
+
 export default function Dashboard() {
   const [selectedResort, setSelectedResort] = useState(resortsData[0]);
   const [weatherData, setWeatherData] = useState(null);
@@ -110,6 +133,15 @@ export default function Dashboard() {
   }, []);
 
   const slopeGuide = selectedResort.slope_guide;
+
+  const lastUpdatedTime = (() => {
+    if (!weatherData?.lastUpdated) return null;
+    try {
+      const d = new Date(weatherData.lastUpdated);
+      if (isNaN(d.getTime())) return null;
+      return d.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+    } catch { return null; }
+  })();
 
   return (
     <div 
@@ -182,13 +214,18 @@ export default function Dashboard() {
                       {weatherData.temperature}°C
                     </span>
                   </div>
-                  <div className="text-xl text-white/90 font-medium mb-5 tracking-tight drop-shadow-sm">
-                    {weatherData.weatherDescription}
+                  <div className="mb-4">
+                    <div className="text-xl text-white/90 font-medium tracking-tight drop-shadow-sm mb-1">
+                      {weatherData.weatherDescription}
+                    </div>
+                    {lastUpdatedTime && (
+                      <span className="text-[11px] text-white/40 font-medium">Son ölçüm: {lastUpdatedTime}</span>
+                    )}
                   </div>
-                  
+
                   {/* Detailed Metric Boxes */}
                   <div className="space-y-2.5 mb-5">
-                    <div className="grid grid-cols-2 gap-2.5">
+                    <div className={`grid gap-2.5 ${weatherData.humidity != null ? 'grid-cols-3' : 'grid-cols-2'}`}>
                       {/* Wind Speed (Rüzgar Hızı) */}
                       <div className="bg-black/25 backdrop-blur-md border border-white/15 rounded-2xl p-3.5 flex flex-col justify-between shadow-inner">
                         <span className="text-[10px] text-white/60 uppercase tracking-wider font-bold mb-1">Rüzgar</span>
@@ -199,12 +236,19 @@ export default function Dashboard() {
 
                       {/* Snow Depth (Kar Kalınlığı) */}
                       <div className="bg-black/25 backdrop-blur-md border border-white/15 rounded-2xl p-3.5 flex flex-col justify-between shadow-inner">
-                        <div className="flex items-center justify-between">
-                          <span className="text-[10px] text-white/60 uppercase tracking-wider font-bold mb-1">Kar Kalınlığı</span>
-                          <span className="text-[8px] text-emerald-300 uppercase font-semibold bg-emerald-950/50 px-1.5 py-0.5 rounded border border-emerald-500/30">MGM</span>
-                        </div>
+                        <span className="text-[10px] text-white/60 uppercase tracking-wider font-bold mb-1">Kar</span>
                         <span className="text-base font-bold text-white drop-shadow-sm">{weatherData.snowDepthText}</span>
                       </div>
+
+                      {/* Humidity (Nem) - only when available from MGM */}
+                      {weatherData.humidity != null && (
+                        <div className="bg-black/25 backdrop-blur-md border border-white/15 rounded-2xl p-3.5 flex flex-col justify-between shadow-inner">
+                          <span className="text-[10px] text-white/60 uppercase tracking-wider font-bold mb-1">Nem</span>
+                          <span className="text-base font-bold text-white drop-shadow-sm">
+                            {weatherData.humidity} <span className="text-xs text-white/60 font-normal">%</span>
+                          </span>
+                        </div>
+                      )}
                     </div>
 
                     {/* Lift Status Bar */}
@@ -227,7 +271,7 @@ export default function Dashboard() {
                   {/* 5 Günlük MGM Tahmin Şeridi */}
                   <div className="pt-4 border-t border-white/15">
                     <div className="flex items-center justify-between mb-2.5">
-                      <span className="text-[11px] font-bold text-white/80 uppercase tracking-wider drop-shadow-sm">5 Günlük MGM Tahmini</span>
+                      <span className="text-[11px] font-bold text-white/80 uppercase tracking-wider drop-shadow-sm">5 Günlük Tahmin</span>
                       <span className="text-[9px] text-white/50 font-medium uppercase">Min / Max °C</span>
                     </div>
 
@@ -261,76 +305,71 @@ export default function Dashboard() {
           </div>
 
           {/* Card 2: Pist Dağılımı & Bölge / Pist Bilgi Rehberi */}
-          <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 md:p-7 flex flex-col justify-between shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] transition-all duration-300 hover:border-white/30">
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xs font-bold text-white/70 uppercase tracking-[0.15em] drop-shadow-sm">Pist Dağılımı</h2>
-                <div className="flex items-center gap-2">
-                  <span className="text-sm font-bold text-white tracking-tight drop-shadow-sm">
-                    {selectedResort.slopes.total_km} <span className="text-xs text-white/60 font-normal">km Pist</span>
-                  </span>
-                  <button
-                    onClick={() => setIsMapModalOpen(true)}
-                    className="text-[10px] bg-white/10 hover:bg-white/25 border border-white/15 px-2 py-0.5 rounded-lg text-white/80 hover:text-white transition-all"
-                    title="Kuşbakışı Haritayı Aç"
-                  >
-                    Harita ↗
-                  </button>
-                </div>
+          <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 md:p-7 flex flex-col shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] transition-all duration-300 hover:border-white/30">
+            <div className="flex items-center justify-between mb-4 flex-shrink-0">
+              <h2 className="text-xs font-bold text-white/70 uppercase tracking-[0.15em] drop-shadow-sm">Pist Dağılımı</h2>
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-bold text-white tracking-tight drop-shadow-sm">
+                  {selectedResort.slopes.total_km} <span className="text-xs text-white/60 font-normal">km Pist</span>
+                </span>
+                <button
+                  onClick={() => setIsMapModalOpen(true)}
+                  className="text-[10px] bg-white/10 hover:bg-white/25 border border-white/15 px-2 py-0.5 rounded-lg text-white/80 hover:text-white transition-all"
+                  title="Kuşbakışı Haritayı Aç"
+                >
+                  Harita ↗
+                </button>
+              </div>
+            </div>
+
+            {/* Progress Bar & Breakdown */}
+            <div className="space-y-3 mb-4 flex-shrink-0">
+              <div className="h-3.5 w-full rounded-full flex overflow-hidden bg-black/30 border border-white/15 shadow-inner">
+                <div
+                  style={{ width: `${selectedResort.slopes.green_blue_percent}%` }}
+                  className="bg-sky-400 transition-all duration-700 ease-out"
+                  title={`Yeşil/Mavi: %${selectedResort.slopes.green_blue_percent}`}
+                />
+                <div
+                  style={{ width: `${selectedResort.slopes.red_percent}%` }}
+                  className="bg-rose-500 transition-all duration-700 ease-out"
+                  title={`Kırmızı: %${selectedResort.slopes.red_percent}`}
+                />
+                <div
+                  style={{ width: `${selectedResort.slopes.black_percent}%` }}
+                  className="bg-zinc-800 transition-all duration-700 ease-out"
+                  title={`Siyah: %${selectedResort.slopes.black_percent}`}
+                />
               </div>
 
-              {/* Progress Bar & Breakdown */}
-              <div className="space-y-3 mb-4">
-                {/* Stacked Progress Bar */}
-                <div className="h-3.5 w-full rounded-full flex overflow-hidden bg-black/30 border border-white/15 shadow-inner">
-                  <div 
-                    style={{ width: `${selectedResort.slopes.green_blue_percent}%` }} 
-                    className="bg-sky-400 transition-all duration-700 ease-out"
-                    title={`Yeşil/Mavi: %${selectedResort.slopes.green_blue_percent}`}
-                  />
-                  <div 
-                    style={{ width: `${selectedResort.slopes.red_percent}%` }} 
-                    className="bg-rose-500 transition-all duration-700 ease-out"
-                    title={`Kırmızı: %${selectedResort.slopes.red_percent}`}
-                  />
-                  <div 
-                    style={{ width: `${selectedResort.slopes.black_percent}%` }} 
-                    className="bg-zinc-800 transition-all duration-700 ease-out"
-                    title={`Siyah: %${selectedResort.slopes.black_percent}`}
-                  />
+              <div className="flex justify-between items-center text-xs px-1">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-2 h-2 rounded-full bg-sky-400 shadow-[0_0_6px_rgba(56,189,248,0.6)]"></div>
+                  <span className="text-white/80 font-medium">Mavi (%{selectedResort.slopes.green_blue_percent})</span>
                 </div>
-                
-                {/* Legend Badges */}
-                <div className="flex justify-between items-center text-xs px-1">
-                  <div className="flex items-center gap-1.5">
-                    <div className="w-2 h-2 rounded-full bg-sky-400 shadow-[0_0_6px_rgba(56,189,248,0.6)]"></div>
-                    <span className="text-white/80 font-medium">Mavi (%{selectedResort.slopes.green_blue_percent})</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <div className="w-2 h-2 rounded-full bg-rose-500 shadow-[0_0_6px_rgba(244,63,94,0.6)]"></div>
-                    <span className="text-white/80 font-medium">Kırmızı (%{selectedResort.slopes.red_percent})</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <div className="w-2 h-2 rounded-full bg-zinc-800 border border-white/20"></div>
-                    <span className="text-white/80 font-medium">Siyah (%{selectedResort.slopes.black_percent})</span>
-                  </div>
+                <div className="flex items-center gap-1.5">
+                  <div className="w-2 h-2 rounded-full bg-rose-500 shadow-[0_0_6px_rgba(244,63,94,0.6)]"></div>
+                  <span className="text-white/80 font-medium">Kırmızı (%{selectedResort.slopes.red_percent})</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <div className="w-2 h-2 rounded-full bg-zinc-800 border border-white/20"></div>
+                  <span className="text-white/80 font-medium">Siyah (%{selectedResort.slopes.black_percent})</span>
                 </div>
               </div>
+            </div>
 
-              {/* Bölge & Pist Bilgi Rehberi (Structured Slope Guide) */}
-              <div className="pt-3.5 border-t border-white/15 space-y-2.5">
-                <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-bold text-white/80 uppercase tracking-wider drop-shadow-sm flex items-center gap-1.5">
-                    <svg className="w-3 h-3 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-                    </svg>
-                    Bölge & Pist Bilgi Rehberi
-                  </span>
-                </div>
+            {/* Bölge & Pist Bilgi Rehberi */}
+            <div className="pt-3.5 border-t border-white/15 flex flex-col flex-grow">
+              <span className="text-[11px] font-bold text-white/80 uppercase tracking-wider drop-shadow-sm flex items-center gap-1.5 mb-3 flex-shrink-0">
+                <svg className="w-3 h-3 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                </svg>
+                Bölge & Pist Bilgi Rehberi
+              </span>
 
-                {slopeGuide ? (
-                  <>
-                    {/* Zone 1 Box */}
+              {slopeGuide ? (
+                <>
+                  <div className="space-y-2.5 flex-grow">
                     <div className="bg-white/10 p-2.5 rounded-xl border border-white/10 backdrop-blur-md shadow-sm">
                       <div className="flex items-center gap-1.5 text-white font-semibold text-xs mb-1 drop-shadow-sm">
                         <span className="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
@@ -341,7 +380,6 @@ export default function Dashboard() {
                       </p>
                     </div>
 
-                    {/* Zone 2 Box */}
                     <div className="bg-white/10 p-2.5 rounded-xl border border-white/10 backdrop-blur-md shadow-sm">
                       <div className="flex items-center gap-1.5 text-white font-semibold text-xs mb-1 drop-shadow-sm">
                         <span className="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
@@ -351,43 +389,55 @@ export default function Dashboard() {
                         {slopeGuide.zone2_desc}
                       </p>
                     </div>
+                  </div>
 
-                    {/* Popular Runs Highlights */}
-                    <div className="bg-black/25 px-3 py-1.5 rounded-xl border border-white/10 text-[11px] text-white/90 flex items-center gap-2 shadow-inner">
-                      <svg className="w-3.5 h-3.5 text-amber-300 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                      <span className="truncate">{slopeGuide.popular_runs}</span>
-                    </div>
-                  </>
-                ) : (
-                  <p className="text-xs text-white/60 py-2">Bölge bilgisi bulunamadı.</p>
-                )}
-              </div>
-
+                  <div className="mt-3 bg-black/25 px-3 py-2 rounded-xl border border-white/10 text-[11px] text-white/90 flex items-center gap-2 shadow-inner flex-shrink-0">
+                    <svg className="w-3.5 h-3.5 text-amber-300 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <span className="truncate">{slopeGuide.popular_runs}</span>
+                  </div>
+                </>
+              ) : (
+                <p className="text-xs text-white/60 py-2">Bölge bilgisi bulunamadı.</p>
+              )}
             </div>
           </div>
 
-          {/* Card 3: Satış Destek Notu */}
-          <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 md:p-7 flex flex-col justify-between shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] transition-all duration-300 hover:border-white/30 relative overflow-hidden group">
-            <div>
-              <h2 className="text-xs font-bold text-white/90 uppercase tracking-[0.15em] mb-6 flex items-center gap-2.5 drop-shadow-sm">
-                <span className="bg-white text-black p-1 rounded-md shadow-sm">
-                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                </span>
-                Danışman Notu
-              </h2>
-              
-              <div className="flex items-center py-2">
-                <p className="text-lg lg:text-xl text-white/95 font-medium leading-relaxed tracking-tight drop-shadow-md">
-                  "{selectedResort.sales_tip}"
-                </p>
-              </div>
+          {/* Card 3: Danışman Notu */}
+          <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 md:p-7 flex flex-col shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] transition-all duration-300 hover:border-white/30">
+            <h2 className="text-xs font-bold text-white/90 uppercase tracking-[0.15em] mb-5 flex items-center gap-2.5 drop-shadow-sm flex-shrink-0">
+              <span className="bg-white text-black p-1 rounded-md shadow-sm">
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </span>
+              Danışman Notu
+            </h2>
+
+            {/* Headline Sales Tip */}
+            <div className="bg-black/25 border border-white/15 rounded-2xl p-4 mb-4 backdrop-blur-md flex-shrink-0">
+              <p className="text-base text-white/95 font-semibold leading-snug tracking-tight drop-shadow-md">
+                "{selectedResort.sales_tip}"
+              </p>
             </div>
-            
-            <div className="text-[11px] text-white/60 font-semibold uppercase tracking-widest pt-4 border-t border-white/15 mt-4">
+
+            {/* Recommendation Cards */}
+            <div className="flex flex-col justify-between flex-grow gap-2.5">
+              {selectedResort.recommendations?.map((rec, i) => (
+                <div key={i} className="bg-black/25 border border-white/15 rounded-2xl p-3.5 flex items-center gap-3.5 backdrop-blur-md shadow-inner">
+                  <div className="bg-white/10 border border-white/15 p-2.5 rounded-xl flex-shrink-0">
+                    <RecommendationIcon category={rec.category} />
+                  </div>
+                  <div className="min-w-0">
+                    <span className="text-[9px] text-white/50 uppercase tracking-widest font-bold block mb-0.5">{rec.label}</span>
+                    <span className="text-sm text-white/90 font-medium leading-snug">{rec.item}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="text-[11px] text-white/60 font-semibold uppercase tracking-widest pt-4 border-t border-white/15 mt-4 flex-shrink-0">
               {selectedResort.name} için Optimize Edildi
             </div>
           </div>

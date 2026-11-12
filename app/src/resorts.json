@@ -21,7 +21,12 @@
       "zone2_desc": "Kuşaklıkaya, Maden ve Tutyeli hattı. Dik kırmızı ve siyah etaplar bulunur; carving ve tempolu inişler için uygundur.",
       "popular_runs": "Öne Çıkanlar: Tutyeli, Kuşaklıkaya, Cennetkaya, Beden Terbiyesi"
     },
-    "sales_tip": "Uludağ'ın değişken nem ve rüzgar koşulları için nem emici katmanlı giysiler ile yumuşayan karda rahat kayış sağlayan all-mountain kayak veya snowboard tavsiye edilir.",
+    "sales_tip": "Değişken nem ve rüzgar koşulları: katmanlı sistem ve all-mountain seçim şart.",
+    "recommendations": [
+      { "category": "giysi", "label": "Giysi", "item": "Merino bazlı nem emici içlik + su geçirmez softshell ceket" },
+      { "category": "ekipman", "label": "Ekipman", "item": "All-mountain kayak (90-100mm bel) veya hibrit snowboard" },
+      { "category": "gozluk", "label": "Gözlük", "item": "S2/S3 çok katmanlı lens — nem ve parlama önleme" }
+    ],
     "bg_image": "https://images.unsplash.com/photo-1548777123-e216912df7d8?auto=format&fit=crop&q=80",
     "trail_map_url": "https://images.unsplash.com/photo-1551524559-8af4e6624178?auto=format&fit=crop&w=1600&q=80"
   },
@@ -47,7 +52,12 @@
       "zone2_desc": "3400m irtifada dik etaplar ve serbest iniş rotaları. Yüksek hız ve sert zemin için teknik pistler.",
       "popular_runs": "Öne Çıkanlar: Hacılar Kapı, Sırt Pisti, Şeytan Deresi, Kani Pisti"
     },
-    "sales_tip": "Erciyes'in yüksek irtifadaki rüzgarlı ve açık hava koşulları için rüzgar geçirmez hardshell ceket ile yüksek UV korumalı aynalı cam kar gözlüğü tercih etmelisiniz.",
+    "sales_tip": "3400m'de UV ve rüzgar çift tehdit — aynalı cam gözlük ve hardshell olmadan zirveye çıkma.",
+    "recommendations": [
+      { "category": "giysi", "label": "Giysi", "item": "Hardshell 3L membran ceket + premium termal içlik seti" },
+      { "category": "ekipman", "label": "Ekipman", "item": "Carving kayak veya sert flex all-mountain (buzlu sert zemin)" },
+      { "category": "gozluk", "label": "Gözlük", "item": "Aynalı S3/S4 lens — 3400m yüksek UV koruması zorunlu" }
+    ],
     "bg_image": "https://images.unsplash.com/photo-1512273222628-4daea6e55abb?auto=format&fit=crop&q=80",
     "trail_map_url": "https://images.unsplash.com/photo-1605540436563-5bca919ae766?auto=format&fit=crop&w=1600&q=80"
   },
@@ -73,7 +83,12 @@
       "zone2_desc": "Türkiye'nin en uzun ve dik FIS tescilli etapları. Sert toz kar ve yüksek eğimli slalom rotaları.",
       "popular_runs": "Öne Çıkanlar: Ejder Pisti, Kapı Pisti, Vadi İnişi, Güney Pisti"
     },
-    "sales_tip": "Palandöken'in dondurucu soğukları ve sert/buzlu zemin yapısı için yüksek termal değerli içlik takımı ve keskin kenar tutuşuna sahip sert flex ekipmanlar önerilir.",
+    "sales_tip": "Türkiye'nin en sert ve dik pistleri: yüksek flex ekipman ile tam termal sistem olmadan inme.",
+    "recommendations": [
+      { "category": "giysi", "label": "Giysi", "item": "3 katmanlı termal sistem — -20°C'ye kadar aktif performans" },
+      { "category": "ekipman", "label": "Ekipman", "item": "Sert flex (80-110) FIS tescilli kayak veya directional board" },
+      { "category": "gozluk", "label": "Gözlük", "item": "Çift camlı anti-fog sistem — soğuk donmaya karşı zorunlu" }
+    ],
     "bg_image": "https://images.unsplash.com/photo-1491555103944-7c647fd857e6?auto=format&fit=crop&q=80",
     "trail_map_url": "https://images.unsplash.com/photo-1546707012-0c9f63ba29b8?auto=format&fit=crop&w=1600&q=80"
   },
@@ -99,7 +114,12 @@
       "zone2_desc": "Nispeten dik sırt hatları ve geniş bol kar alanları. Rüzgardan korunaklı vadi geçişleri bulunur.",
       "popular_runs": "Öne Çıkanlar: Çamçukuru, Kazankaya, Resuldede, Yılmaz Demir"
     },
-    "sales_tip": "Kartalkaya'da sıkça görülen sisli havalarda kontrastı artıran sarı/turuncu kontrastlı gözlük camı ve ezilmemiş bol kar alanları için geniş tabanlı snowboard/kayak tavsiye edilir.",
+    "sales_tip": "Sık sisli havalarda kontrast artırıcı gözlük; bol taze kar alanları için geniş tabanlı ekipman.",
+    "recommendations": [
+      { "category": "giysi", "label": "Giysi", "item": "Su geçirmez 3L membran ceket + ısı yönetimli midlayer" },
+      { "category": "ekipman", "label": "Ekipman", "item": "Geniş tabanlı powder/freestyle snowboard veya all-mountain" },
+      { "category": "gozluk", "label": "Gözlük", "item": "S1/S2 sarı-turuncu kontrast cam — sis ve flat-light koşullar" }
+    ],
     "bg_image": "https://images.unsplash.com/photo-1478265409131-1f65c88f965c?auto=format&fit=crop&q=80",
     "trail_map_url": "https://images.unsplash.com/photo-1517059224940-d4af9eec41b7?auto=format&fit=crop&w=1600&q=80"
   }
