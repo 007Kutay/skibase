@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getWeatherData } from './weatherService';
 import resortsData from './resorts.json';
+import ResortMap from './ResortMap';
 
 const SNOW_CODES   = new Set(['K','HKY','YKY','KKY','71','73','75','77','85','86']);
 const STORM_CODES  = new Set(['GSY','KGY','DY','MSY','KSY','95','96','99']);
@@ -337,6 +338,11 @@ export default function Dashboard() {
                   <span className="text-white/80 font-medium">Siyah (%{selectedResort.slopes.black_percent})</span>
                 </div>
               </div>
+            </div>
+
+            {/* İnteraktif Harita */}
+            <div className="mb-4">
+              <ResortMap lat={selectedResort.lat} lon={selectedResort.lon} name={selectedResort.name} />
             </div>
 
             {/* Bölge & Pist Bilgi Rehberi */}
