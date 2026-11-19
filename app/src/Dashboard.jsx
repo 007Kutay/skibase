@@ -90,7 +90,6 @@ export default function Dashboard() {
   const [weatherData, setWeatherData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -120,17 +119,6 @@ export default function Dashboard() {
       clearInterval(intervalId);
     };
   }, [selectedResort]);
-
-  // Modal ESC tuşu dinleyicisi
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape') {
-        setIsMapModalOpen(false);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
 
   const slopeGuide = selectedResort.slope_guide;
 
@@ -312,13 +300,6 @@ export default function Dashboard() {
                 <span className="text-sm font-bold text-white tracking-tight drop-shadow-sm">
                   {selectedResort.slopes.total_km} <span className="text-xs text-white/60 font-normal">km Pist</span>
                 </span>
-                <button
-                  onClick={() => setIsMapModalOpen(true)}
-                  className="text-[10px] bg-white/10 hover:bg-white/25 border border-white/15 px-2 py-0.5 rounded-lg text-white/80 hover:text-white transition-all"
-                  title="Kuşbakışı Haritayı Aç"
-                >
-                  Harita ↗
-                </button>
               </div>
             </div>
 
@@ -445,63 +426,6 @@ export default function Dashboard() {
         </main>
       </div>
 
-      {/* Pist Haritası Modal / Lightbox (Frosted Glass Theme) */}
-      {isMapModalOpen && (
-        <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 bg-black/75 backdrop-blur-xl animate-fadeIn"
-          onClick={() => setIsMapModalOpen(false)}
-        >
-          <div 
-            className="relative max-w-5xl w-full bg-white/10 backdrop-blur-2xl border border-white/25 rounded-3xl overflow-hidden shadow-[0_16px_48px_0_rgba(0,0,0,0.6)] flex flex-col"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Modal Header */}
-            <div className="p-4 md:p-6 border-b border-white/15 flex items-center justify-between bg-black/30 backdrop-blur-md">
-              <div>
-                <h3 className="text-lg md:text-xl font-bold text-white tracking-wide drop-shadow-sm">
-                  {selectedResort.name} — Kuşbakışı Pist Haritası
-                </h3>
-                <p className="text-xs text-white/70 mt-0.5">
-                  Toplam {selectedResort.slopes.total_km} km pist uzunluğu • Rakım: {selectedResort.elevation} m
-                </p>
-              </div>
-              
-              <button 
-                onClick={() => setIsMapModalOpen(false)}
-                className="text-white/70 hover:text-white bg-white/10 hover:bg-white/20 border border-white/15 p-2 rounded-xl transition-all shadow-sm"
-                title="Kapat (ESC)"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-
-            {/* Modal Image Container */}
-            <div className="relative w-full max-h-[75vh] overflow-auto bg-black/40 flex items-center justify-center p-3">
-              <img 
-                src={selectedResort.trail_map_url || selectedResort.bg_image} 
-                alt={`${selectedResort.name} Pist Haritası Detaylı`} 
-                className="max-h-[70vh] w-auto object-contain rounded-2xl border border-white/10 shadow-2xl"
-              />
-            </div>
-
-            {/* Modal Footer */}
-            <div className="p-4 bg-black/30 backdrop-blur-md border-t border-white/15 flex justify-between items-center text-xs text-white/70">
-              <div>
-                <span className="font-medium">{selectedResort.city}, Türkiye</span>
-                <p className="text-[10px] text-white/40 mt-0.5">Bu görsel temsilidir, resmi pist haritası değildir.</p>
-              </div>
-              <button
-                onClick={() => setIsMapModalOpen(false)}
-                className="px-5 py-2 bg-white text-black font-bold rounded-xl hover:bg-white/90 transition-all shadow-md active:scale-95"
-              >
-                Kapat
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
