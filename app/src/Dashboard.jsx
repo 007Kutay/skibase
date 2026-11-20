@@ -172,8 +172,8 @@ export default function Dashboard() {
           </div>
         </header>
 
-        {/* Main Content Area - 3 Frosted Glass Cards Layout */}
-        <main className="flex-grow grid grid-cols-1 lg:grid-cols-3 gap-6 pb-4 items-stretch">
+        {/* Main Content Area - 4 Frosted Glass Cards Layout */}
+        <main className="flex-grow grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 pb-4 items-stretch">
           
           {/* Card 1: Canlı Koşullar & 5 Günlük Tahmin */}
           <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 md:p-7 flex flex-col justify-between shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] transition-all duration-300 hover:border-white/30">
@@ -426,6 +426,43 @@ export default function Dashboard() {
 
             <div className="text-[11px] text-white/60 font-semibold uppercase tracking-widest pt-4 border-t border-white/15 mt-4 flex-shrink-0">
               {selectedResort.name} için Optimize Edildi
+            </div>
+          </div>
+
+          {/* Card 4: Ekipman Kiralama */}
+          <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 md:p-7 flex flex-col shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] transition-all duration-300 hover:border-white/30">
+            <h2 className="text-xs font-bold text-white/90 uppercase tracking-[0.15em] mb-5 flex items-center gap-2.5 drop-shadow-sm flex-shrink-0">
+              <span className="bg-white text-black p-1 rounded-md shadow-sm">
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                </svg>
+              </span>
+              Ekipman Kiralama
+            </h2>
+
+            <div className="flex-grow flex flex-col gap-2.5">
+              {selectedResort.rentals?.map((rental, i) => (
+                <div key={i} className="bg-black/25 border border-white/15 rounded-2xl px-4 py-3 flex items-center justify-between backdrop-blur-md shadow-inner">
+                  <div className="min-w-0">
+                    <span className="text-sm font-semibold text-white/95 block leading-tight">{rental.item}</span>
+                    <span className="text-[11px] text-white/50 font-medium">{rental.desc}</span>
+                  </div>
+                  <div className="flex-shrink-0 ml-3 text-right">
+                    {rental.price_day != null ? (
+                      <>
+                        <span className="text-base font-black text-white">{rental.price_day.toLocaleString('tr-TR')} ₺</span>
+                        <span className="text-[10px] text-white/50 block font-medium">/ gün</span>
+                      </>
+                    ) : (
+                      <span className="text-xs text-white/30 font-medium italic">yakında</span>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="text-[11px] text-white/60 font-semibold uppercase tracking-widest pt-4 border-t border-white/15 mt-4 flex-shrink-0">
+              {selectedResort.name} Kiralık Ekipman
             </div>
           </div>
 
