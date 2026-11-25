@@ -31,7 +31,7 @@ export default function ResortMap({ lat, lon, name }) {
   return (
     <div
       ref={containerRef}
-      className="w-full rounded-2xl overflow-hidden border border-white/15"
+      className="w-full rounded-2xl overflow-hidden border border-sky-100"
       style={{ height: '190px' }}
     />
   );
