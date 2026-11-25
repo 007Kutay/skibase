@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 
-export default function ResortMap({ lat, lon, name }) {
+export default function ResortMap({ lat, lon, name, height = '190px' }) {
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export default function ResortMap({ lat, lon, name }) {
     <div
       ref={containerRef}
       className="w-full rounded-2xl overflow-hidden border border-sky-100"
-      style={{ height: '190px' }}
+      style={{ height }}
     />
   );
 }
