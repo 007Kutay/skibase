@@ -51,22 +51,34 @@ skibase/
 
 ---
 
-## 3 Kart Düzeni
+## Arayüz Mimarisi — SKIBASE PRO (Kasım 2026)
+
+### Genel Yapı
+- **Desktop:** Sol sidebar (w-64) + sağda 2×2 kart grid'i
+- **Mobil:** Üst header + alt bottom tab bar (5 sekme)
+- **Font:** Plus Jakarta Sans (Google Fonts)
+- **Tema:** Glassmorphic koyu cam — fotoğraf arka plan (`blur 3px`), `bg-black/40` overlay, kartlar `bg-white/10 backdrop-blur-xl`
+
+### 4 Kart Düzeni (2×2 Grid)
 
 **Kart 1 — Canlı Koşullar**
 - Anlık sıcaklık, rüzgar hızı, kar derinliği, nem
 - Mekanik tesis / lift durumu
 - 5 günlük hava tahmini (MGM + Open-Meteo yedek)
 
-**Kart 2 — Pist Dağılımı & Harita**
+**Kart 2 — AI Danışman**
+- Merkeze özel danışman notu (satış tüyosu)
+- Giysi, ekipman ve gözlük önerileri
+- Koyu gradient tema (`from-slate-950 to-[#04335E]`)
+
+**Kart 3 — Pist Dağılımı & Harita**
 - Mavi / Kırmızı / Siyah pist yüzde barı
 - İnteraktif MapLibre haritası (koyu tema, marker, zoom)
-- Bölge & pist bilgi rehberi
-- Öne çıkan pistler
+- Bölge & pist bilgi rehberi + öne çıkan pistler
 
-**Kart 3 — Danışman Notu**
-- Merkeze özel satış tüyosu
-- Giysi, ekipman ve gözlük önerileri
+**Kart 4 — Ekipman Kiralama**
+- Merkeze özel kiralık ekipman listesi (₺/gün)
+- `resorts.json` → `rentals` dizisinden dinamik
 
 ---
 
@@ -82,4 +94,6 @@ Yerel değişiklik → git commit → git push → GitHub → Vercel otomatik bu
 
 ## Günlük Notlar
 
-[günlük/2026-11-19.md](gunluk/2026-11-19.md)
+- [günlük/2026-11-25.md](gunluk/2026-11-25.md)
+- [günlük/2026-11-20.md](gunluk/2026-11-20.md)
+- [günlük/2026-11-19.md](gunluk/2026-11-19.md)
