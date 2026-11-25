@@ -174,12 +174,25 @@ export default function Dashboard() {
      RENDER
   ───────────────────────────────────────────────── */
   return (
-    <div className="bg-[#F4F7FB] font-sans min-h-screen lg:h-screen lg:overflow-hidden lg:flex">
+    <div className="font-sans min-h-screen lg:h-screen lg:overflow-hidden lg:flex">
+
+      {/* ── BLURRED RESORT BACKGROUND ── */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none" style={{ zIndex: 0 }}>
+        <div
+          className="absolute inset-0 bg-cover bg-center transition-all duration-700"
+          style={{
+            backgroundImage: `url(${selectedResort.bg_image})`,
+            filter: 'blur(14px)',
+            transform: 'scale(1.1)',
+          }}
+        />
+        <div className="absolute inset-0 bg-white/52" />
+      </div>
 
       {/* ══════════════════════════════════════════
           DESKTOP LEFT SIDEBAR
       ══════════════════════════════════════════ */}
-      <aside className="hidden lg:flex flex-col w-64 xl:w-72 bg-white border-r border-sky-100 shrink-0 h-screen sticky top-0">
+      <aside className="hidden lg:flex flex-col w-64 xl:w-72 bg-white/90 border-r border-sky-100 shrink-0 h-screen sticky top-0 relative z-10">
 
         {/* Logo */}
         <div className="p-5 border-b border-sky-100 shrink-0">
@@ -230,10 +243,10 @@ export default function Dashboard() {
       {/* ══════════════════════════════════════════
           CONTENT AREA (mobile: full; desktop: flex-1)
       ══════════════════════════════════════════ */}
-      <div className="flex flex-col flex-1 min-w-0 lg:overflow-hidden">
+      <div className="flex flex-col flex-1 min-w-0 lg:overflow-hidden relative z-10">
 
         {/* ── STICKY HEADER ── */}
-        <div className="sticky top-0 z-30 bg-[#F4F7FB]/95 backdrop-blur-md border-b border-sky-100/60">
+        <div className="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-sky-100/60">
           <div className="px-4 lg:px-6 pt-3 pb-2">
 
             {/* Mobile logo + action buttons */}
