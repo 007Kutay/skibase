@@ -323,7 +323,7 @@ export default function Dashboard() {
 
         {/* ── SCROLLABLE CARDS ── */}
         <main className="flex-1 overflow-y-auto no-scrollbar px-4 lg:px-6 pt-4 pb-28 lg:pb-6">
-          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-5 items-start">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-5">
 
             {/* ── CARD 1: CANLI KOŞULLAR ── */}
             <section className={`${GLASS} p-4 lg:p-5 relative overflow-hidden`}>
