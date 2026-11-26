@@ -461,11 +461,8 @@ export default function Dashboard() {
             </section>
 
             {/* ── CARD 2: AI DANIŞMAN ── */}
-            <section className="bg-gradient-to-br from-slate-950 via-[#0B1E38] to-[#04335E] backdrop-blur-xl border border-sky-500/20 rounded-3xl p-4 lg:p-5 shadow-[0_8px_32px_0_rgba(0,0,0,0.5)] relative overflow-hidden">
-              <div className="absolute -right-8 -bottom-8 w-32 h-32 bg-sky-500/20 rounded-full blur-3xl pointer-events-none"></div>
-              <div className="absolute -left-6 -top-6 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none"></div>
-
-              <div className="flex items-center justify-between mb-4 relative z-10">
+            <section className={`${GLASS} p-4 lg:p-5 relative overflow-hidden`}>
+              <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2.5">
                   <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-500 to-amber-300 text-slate-900 flex items-center justify-center font-extrabold text-xs shadow-md shrink-0">AI</div>
                   <div>
@@ -476,11 +473,11 @@ export default function Dashboard() {
                 <span className="text-[10px] font-bold text-amber-300 bg-amber-500/20 border border-amber-400/40 px-2 py-0.5 rounded-full shrink-0">★ Uzman</span>
               </div>
 
-              <blockquote className="bg-white/10 rounded-2xl p-3.5 lg:p-4 border border-white/15 mb-4 text-xs lg:text-sm leading-relaxed font-medium text-slate-100 relative z-10 backdrop-blur-sm">
+              <blockquote className="bg-white/10 rounded-2xl p-3.5 lg:p-4 border border-white/15 mb-4 text-xs lg:text-sm leading-relaxed font-medium text-slate-100 backdrop-blur-sm">
                 "{selectedResort.sales_tip}"
               </blockquote>
 
-              <div className="space-y-2 relative z-10">
+              <div className="space-y-2">
                 {selectedResort.recommendations?.map((rec, i) => {
                   const palette = [
                     { ring: 'bg-sky-500/20 text-sky-300 border-sky-400/20',      label: 'text-sky-300' },
